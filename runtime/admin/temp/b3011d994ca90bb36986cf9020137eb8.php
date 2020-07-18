@@ -1,9 +1,9 @@
-<?php /*a:1:{s:74:"/Users/apple/Documents/WebSite/yifeng1/app/admin/view/classlist/index.html";i:1594976346;}*/ ?>
+<?php /*a:1:{s:74:"/Users/apple/Documents/WebSite/yifeng1/app/admin/view/classlist/index.html";i:1595062851;}*/ ?>
 <!DOCTYPE html>
 <html class="x-admin-sm">
     <head>
         <meta charset="UTF-8">
-        <title>欢迎页面-X-admin2.2</title>
+        <title>参数类型</title>
         <meta name="renderer" content="webkit">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -45,35 +45,38 @@
                                   <th width="100">操作</th>
                               </thead>
                               <tbody>
+                                <?php if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
                                 <tr>
-                                  <td>1</td>
-                                  <td>admin</td>
-                                  <td>18925139194</td>
-                                  <td class="td-manage">
-                                    <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
-                                      <i class="layui-icon">&#xe601;</i>
-                                    </a>
-                                    <a title="编辑"  onclick="xadmin.open('编辑','admin-edit.html')" href="javascript:;">
-                                      <i class="layui-icon">&#xe642;</i>
-                                    </a>
-                                    <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                                      <i class="layui-icon">&#xe640;</i>
-                                    </a>
-                                  </td>
+                                    <td><?php echo htmlentities($vo['id']); ?></td>
+                                    <td><?php echo htmlentities($vo['name']); ?></td>
+                                    <td><?php echo htmlentities($vo['sort']); ?></td>
+                                    <td class="td-manage">
+                                        <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
+                                            <i class="layui-icon">&#xe601;</i>
+                                        </a>
+                                        <a title="编辑"  onclick="xadmin.open('编辑','admin-edit.html')" href="javascript:;">
+                                            <i class="layui-icon">&#xe642;</i>
+                                        </a>
+                                        <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                                            <i class="layui-icon">&#xe640;</i>
+                                        </a>
+                                    </td>
                                 </tr>
+                                <?php endforeach; endif; else: echo "" ;endif; ?>
                               </tbody>
                             </table>
                         </div>
                         <div class="layui-card-body ">
                             <div class="page">
-                                <div>
-                                  <a class="prev" href="">&lt;&lt;</a>
-                                  <a class="num" href="">1</a>
-                                  <span class="current">2</span>
-                                  <a class="num" href="">3</a>
-                                  <a class="num" href="">489</a>
-                                  <a class="next" href="">&gt;&gt;</a>
-                                </div>
+<!--                                <div>-->
+<!--                                  <a class="prev" href="">&lt;&lt;</a>-->
+<!--                                  <a class="num" href="">1</a>-->
+<!--                                  <span class="current">2</span>-->
+<!--                                  <a class="num" href="">3</a>-->
+<!--                                  <a class="num" href="">489</a>-->
+<!--                                  <a class="next" href="">&gt;&gt;</a>-->
+<!--                                </div>-->
+                                <?php echo $list; ?>
                             </div>
                         </div>
                     </div>

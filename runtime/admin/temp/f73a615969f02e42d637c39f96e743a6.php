@@ -1,4 +1,4 @@
-<?php /*a:1:{s:70:"/Users/apple/Documents/WebSite/yifeng1/app/admin/view/login/login.html";i:1594966450;}*/ ?>
+<?php /*a:1:{s:70:"/Users/apple/Documents/WebSite/yifeng1/app/admin/view/login/login.html";i:1595059516;}*/ ?>
 <!doctype html>
 <html  class="x-admin-sm">
 <head>
@@ -29,7 +29,7 @@
             <hr class="hr15">
             <input name="password" lay-verify="required" placeholder="密码"  type="password" class="layui-input">
             <hr class="hr15">
-            <input name="code" lay-verify="required" placeholder="验证码"  type="password" class="layui-input">
+            <input name="code" lay-verify="required" placeholder="验证码"  type="required" class="layui-input">
             <div><?php echo captcha_img(); ?></div>
             <hr class="hr15">
             <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">

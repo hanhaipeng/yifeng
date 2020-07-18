@@ -1,4 +1,4 @@
-<?php /*a:1:{s:75:"/Users/apple/Documents/WebSite/yifeng1/app/admin/view/classlist/create.html";i:1594976988;}*/ ?>
+<?php /*a:1:{s:75:"/Users/apple/Documents/WebSite/yifeng1/app/admin/view/classlist/create.html";i:1595061949;}*/ ?>
 <!DOCTYPE html>
 <html class="x-admin-sm">
 
@@ -65,14 +65,13 @@
                     layer.alert(res.msg, {
                             icon: 6
                         },
-                        function() {
+                        function(index) {
                             if (res.code==1){
-                                //关闭当前frame
-                                xadmin.close();
-
                                 // 可以对父窗口进行刷新
                                 xadmin.father_reload();
                             }
+
+                            xadmin.close(index);
                         });
                 });
                 return false;

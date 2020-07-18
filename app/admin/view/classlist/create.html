@@ -64,14 +64,13 @@
                     layer.alert(res.msg, {
                             icon: 6
                         },
-                        function() {
+                        function(index) {
                             if (res.code==1){
-                                //关闭当前frame
-                                xadmin.close();
-
                                 // 可以对父窗口进行刷新
                                 xadmin.father_reload();
                             }
+
+                            xadmin.close(index);
                         });
                 });
                 return false;

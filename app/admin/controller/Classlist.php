@@ -3,7 +3,9 @@ declare (strict_types = 1);
 
 namespace app\admin\controller;
 
+use think\facade\View;
 use think\Request;
+use app\admin\model\Classlist as ClasslistModel;
 
 class Classlist
 {
@@ -14,6 +16,10 @@ class Classlist
      */
     public function index()
     {
+        //读取数据
+        $list = ClasslistModel::getList(1);
+        //分配到模板
+        View::assign('list',$list);
         return view();
     }
 
@@ -24,7 +30,6 @@ class Classlist
      */
     public function create(Request $request)
     {
-        //halt(url('classlist.create')->build());
         return view();
     }
 
@@ -36,7 +41,8 @@ class Classlist
      */
     public function add(Request $request)
     {
-        return json(return_msg('1','添加成功'));
+        $res = ClasslistModel::store($request->post());
+        return json($res);
     }
 
     /**
