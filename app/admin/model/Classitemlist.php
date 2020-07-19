@@ -3,15 +3,21 @@ declare (strict_types = 1);
 
 namespace app\admin\model;
 
-use app\admin\validate\ClasslistValidate;
+use app\admin\validate\ClassitemlistValidate;
 use think\exception\ValidateException;
 use think\Model;
 
 /**
  * @mixin \think\Model
  */
-class Classlist extends Model
+class Classitemlist extends Model
 {
+    //获取列表数据
+    public static function getList($classid){
+        $list = self::where('id','=',$classid)->select();
+        return $list;
+    }
+
     //数据添加
     public static function _add($data){
         $res = self::_checkData($data);
@@ -21,8 +27,11 @@ class Classlist extends Model
 
         //数据入库
         $res = self::create([
+            'classid' => $data['classid'],
             'name' => $data['name'],
             'sort' => $data['sort'],
+            'value' => $data['value'],
+            'formtype' => $data['formtype']
         ]);
 
         //返回结果
@@ -31,11 +40,6 @@ class Classlist extends Model
         }else{
             return return_msg(2,'添加失败');
         }
-    }
-
-    public static function getList($num=10){
-        $list = self::paginate($num);
-        return $list;
     }
 
     public static function _update($data,$id){
@@ -51,8 +55,11 @@ class Classlist extends Model
         }
 
         $res = self::update([
+            'classid' => $data['classid'],
             'name' => $data['name'],
-            'sort' => $data['sort']
+            'sort' => $data['sort'],
+            'value' => $data['value'],
+            'formtype' => $data['formtype']
         ],['id' => $id]);
 
         //返回结果
@@ -77,7 +84,7 @@ class Classlist extends Model
     private static function _checkData($data){
         //数据验证
         try {
-            validate(ClasslistValidate::class)->check($data);
+            validate(ClassitemlistValidate::class)->check($data);
         }catch (ValidateException $e){
             return return_msg(2,$e->getMessage());
         }

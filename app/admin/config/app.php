@@ -32,6 +32,14 @@ Route::group('admin',function (){
     Route::get('/classlist$','Classlist/index')->name('classlist');
     Route::get('/classlist/create','Classlist/create')->name('classlist.create');
     Route::post('/classlist/add','Classlist/add')->name('classlist.add');
+    Route::post('/classlist/update/:id','Classlist/update')->name('classlist.update');
+    Route::post('/classlist/delete/:id','Classlist/delete')->name('classlist.delete');
+    Route::get('/classlist/edit/:id','Classlist/edit')->name('classlist.edit');
+
+    //classitemlist
+    Route::get('/classitemlist/:classid$','Classitemlist/index')->name('classitemlist');
+    Route::get('/classitemlist/create/:classid','classitemlist/create')->name('classitemlist.create');
+    Route::post('/classitemlist/add','classitemlist/add')->name('classitemlist.add');
 })->middleware(app\middleware\CheckAdminLogin::class);
 
 //登录

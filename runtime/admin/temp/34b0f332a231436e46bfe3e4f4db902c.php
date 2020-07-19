@@ -1,4 +1,4 @@
-<?php /*a:1:{s:74:"/Users/apple/Documents/WebSite/yifeng1/app/admin/view/classlist/index.html";i:1595062851;}*/ ?>
+<?php /*a:1:{s:78:"/Users/hanhaipeng/Documents/WebSite/yifeng/app/admin/view/classlist/index.html";i:1595086709;}*/ ?>
 <!DOCTYPE html>
 <html class="x-admin-sm">
     <head>
@@ -32,7 +32,6 @@
                 <div class="layui-col-md12">
                     <div class="layui-card">
                         <div class="layui-card-header">
-                            <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
                             <button class="layui-btn" onclick="xadmin.open('添加类型','/admin/classlist/create',450,250)"><i class="layui-icon"></i>添加类型</button>
                         </div>
                         <div class="layui-card-body ">
@@ -42,7 +41,7 @@
                                   <th width="60">ID</th>
                                   <th>名称</th>
                                   <th width="80">排序</th>
-                                  <th width="100">操作</th>
+                                  <th width="230">操作</th>
                               </thead>
                               <tbody>
                                 <?php if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
@@ -51,14 +50,14 @@
                                     <td><?php echo htmlentities($vo['name']); ?></td>
                                     <td><?php echo htmlentities($vo['sort']); ?></td>
                                     <td class="td-manage">
-                                        <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
-                                            <i class="layui-icon">&#xe601;</i>
+                                        <a title="参数配置" class="layui-btn layui-btn-sm layui-btn-primary" onclick="xadmin.open('参数配置','/admin/classitemlist/<?php echo htmlentities($vo['id']); ?>',550,600)" href="javascript:;">
+                                            参数配置
                                         </a>
-                                        <a title="编辑"  onclick="xadmin.open('编辑','admin-edit.html')" href="javascript:;">
-                                            <i class="layui-icon">&#xe642;</i>
+                                        <a title="编辑" class="layui-btn layui-btn-sm layui-btn-normal" onclick="xadmin.open('编辑','/admin/classlist/edit/<?php echo htmlentities($vo['id']); ?>',450,250)" href="javascript:;">
+                                            <i class="layui-icon">&#xe642;</i>编辑
                                         </a>
-                                        <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                                            <i class="layui-icon">&#xe640;</i>
+                                        <a title="删除" class="layui-btn layui-btn-sm layui-btn-danger" onclick="member_del(this,'<?php echo htmlentities($vo['id']); ?>')" href="javascript:;">
+                                            <i class="layui-icon">&#xe640;</i>删除
                                         </a>
                                     </td>
                                 </tr>
@@ -100,50 +99,18 @@
         });
       });
 
-       /*用户-停用*/
-      function member_stop(obj,id){
-          layer.confirm('确认要停用吗？',function(index){
-
-              if($(obj).attr('title')=='启用'){
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title','停用')
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!',{icon: 5,time:1000});
-
-              }else{
-                $(obj).attr('title','启用')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!',{icon: 5,time:1000});
-              }
-              
-          });
-      }
-
       /*用户-删除*/
       function member_del(obj,id){
           layer.confirm('确认要删除吗？',function(index){
-              //发异步删除数据
-              $(obj).parents("tr").remove();
-              layer.msg('已删除!',{icon:1,time:1000});
+              $.post('/admin/classlist/delete/'+id,{},function (res) {
+                  layer.msg(res.msg,{icon:1,time:1000},function () {
+                      if (res.code == 1){
+                          //发异步删除数据
+                          $(obj).parents("tr").remove();
+                      }
+                  });
+              });
           });
-      }
-
-
-
-      function delAll (argument) {
-
-        var data = tableCheck.getData();
-  
-        layer.confirm('确认要删除吗？'+data,function(index){
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-        });
       }
     </script>
 </html>

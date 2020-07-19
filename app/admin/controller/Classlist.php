@@ -17,7 +17,7 @@ class Classlist
     public function index()
     {
         //读取数据
-        $list = ClasslistModel::getList(1);
+        $list = ClasslistModel::getList(20);
         //分配到模板
         View::assign('list',$list);
         return view();
@@ -28,7 +28,7 @@ class Classlist
      *
      * @return \think\Response
      */
-    public function create(Request $request)
+    public function create()
     {
         return view();
     }
@@ -41,19 +41,8 @@ class Classlist
      */
     public function add(Request $request)
     {
-        $res = ClasslistModel::store($request->post());
+        $res = ClasslistModel::_add($request->post());
         return json($res);
-    }
-
-    /**
-     * 显示指定的资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function read($id)
-    {
-        //
     }
 
     /**
@@ -64,7 +53,10 @@ class Classlist
      */
     public function edit($id)
     {
-        //
+        $model = ClasslistModel::find($id);
+
+        View::assign('model',$model);
+        return view();
     }
 
     /**
@@ -76,7 +68,7 @@ class Classlist
      */
     public function update(Request $request, $id)
     {
-        //
+        return json(ClasslistModel::_update($request->post(),$id));
     }
 
     /**
@@ -87,6 +79,6 @@ class Classlist
      */
     public function delete($id)
     {
-        //
+        return json(ClasslistModel::_delete($id));
     }
 }

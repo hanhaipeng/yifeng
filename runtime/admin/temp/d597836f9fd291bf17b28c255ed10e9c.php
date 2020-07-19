@@ -1,10 +1,10 @@
-<?php /*a:1:{s:75:"/Users/apple/Documents/WebSite/yifeng1/app/admin/view/classlist/create.html";i:1595061949;}*/ ?>
+<?php /*a:1:{s:77:"/Users/hanhaipeng/Documents/WebSite/yifeng/app/admin/view/classlist/edit.html";i:1595077290;}*/ ?>
 <!DOCTYPE html>
 <html class="x-admin-sm">
 
 <head>
     <meta charset="UTF-8">
-    <title>欢迎页面-X-admin2.2</title>
+    <title>编辑类型配置</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -27,7 +27,7 @@
                     <span class="x-red">*</span>名称
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="name" name="name" required="" lay-verify="required"
+                    <input type="text" id="name" name="name" value="<?php echo htmlentities($model['name']); ?>" required="" lay-verify="required"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
@@ -36,7 +36,7 @@
                     <span class="x-red">*</span>排序
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="sort" name="sort" required="" lay-verify="required"
+                    <input type="text" id="sort" name="sort" value="<?php echo htmlentities($model['sort']); ?>" required="" lay-verify="required"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
@@ -44,7 +44,7 @@
                 <label for="add" class="layui-form-label">
                 </label>
                 <button id="add" class="layui-btn" lay-filter="add" lay-submit="">
-                    增加
+                    保存
                 </button>
             </div>
         </form>
@@ -59,8 +59,7 @@
         //监听提交
         form.on('submit(add)',
             function(data) {
-                $.post('<?php echo url("classlist.add"); ?>',data.field,function (res) {
-                    console.log(res);
+                $.post('/admin/classlist/update/<?php echo htmlentities($model['id']); ?>',data.field,function (res) {
                     //发异步，把数据提交给php
                     layer.alert(res.msg, {
                             icon: 6
@@ -70,7 +69,6 @@
                                 // 可以对父窗口进行刷新
                                 xadmin.father_reload();
                             }
-
                             xadmin.close(index);
                         });
                 });
